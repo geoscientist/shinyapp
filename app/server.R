@@ -6,6 +6,11 @@
 #
 
 library(shiny)
+library(datasets)
+
+data("mtcars")
+raw_model <- lm(mpg ~ ., data=mtcars)
+best_model <- stepAIC(raw_model)
 
 shinyServer(function(input, output) {
 
