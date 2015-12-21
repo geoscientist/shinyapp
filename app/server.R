@@ -18,11 +18,11 @@ shinyServer(function(input, output) {
   output$scatterPlot <- renderPlot({
 
     # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2]
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
+    x    <- mtcars
+    dat <- data.frame(input$wt, input$qs, input$am)
+    
     # draw the histogram with the specified number of bins
-    plot(x, breaks = bins, col = 'darkgray', border = 'white')
+    plot(x$wt, x$qs, col = x$mpg, border = 'white')
 
   })
 
