@@ -7,6 +7,7 @@
 
 library(shiny)
 library(datasets)
+library(MASS)
 
 data("mtcars")
 raw_model <- lm(mpg ~ ., data=mtcars)
@@ -14,14 +15,14 @@ best_model <- stepAIC(raw_model)
 
 shinyServer(function(input, output) {
 
-  output$distPlot <- renderPlot({
+  output$scatterPlot <- renderPlot({
 
     # generate bins based on input$bins from ui.R
     x    <- faithful[, 2]
     bins <- seq(min(x), max(x), length.out = input$bins + 1)
 
     # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    plot(x, breaks = bins, col = 'darkgray', border = 'white')
 
   })
 
