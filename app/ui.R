@@ -11,28 +11,27 @@ library(datasets)
 shinyUI(fluidPage(
 
   # Application title
-  titlePanel("Fuel consumption prediction"),
+  titlePanel("Simple interactive regression plot"),
 
-  # Sidebar with a slider input for number of bins
+  # Sidebar with a two selected inputs
   sidebarLayout(
     sidebarPanel(
-      numericInput("wt",
-                  label = h3("Car weight"),
-                  min = 1, max = 6, value = 2, step = .1),
-      numericInput("qs",
-                    label = h3("Seconds per mile"),
-                   17,
-                   min = 7, max = 25, step = .1),
-      selectInput("am",
-                    label = h3("Select transmission type"),
-                    choices = c(0, 1),
-                  selected = 0
-                  )
-    ),
+      selectInput("predicted",
+                  label = h5("Select predicted variable"),
+                  choices = names(mtcars),
+                  selected = names(mtcars)[1]
+      ),
+      selectInput("predictor",
+                    label = h5("Select predictor variable"),
+                    choices = names(mtcars),
+                  selected = names(mtcars)[4]
+                  )),
 
-    # Show a plot of the generated distribution
+
+    # Show a regression formula and scatterplot of selected features
     mainPanel(
-      plotOutput("scatterPlot")
-    )
+      textOutput("text"),
+      plotOutput("plot")
+     )
   )
 ))

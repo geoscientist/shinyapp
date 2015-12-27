@@ -7,23 +7,21 @@
 
 library(shiny)
 library(datasets)
-library(MASS)
-
-data("mtcars")
-raw_model <- lm(mpg ~ ., data=mtcars)
-best_model <- stepAIC(raw_model)
 
 shinyServer(function(input, output) {
+  
+    # linear model
+    fit <- reactive({ lm(mtcars[, input$predicted] ~ mtcars[, input$predictor]) })
 
-  output$scatterPlot <- renderPlot({
-
-    # generate bins based on input$bins from ui.R
-    x    <- mtcars
-    dat <- data.frame(input$wt, input$qs, input$am)
+    # render a simple regression model formula    
+    output$text <- renderPrint({
+      paste("Formula is ", input$predicted, " = ", fit()$coefficients[1], " + (", fit()$coefficients[2], ") *", input$predictor)
+    })
     
-    # draw the histogram with the specified number of bins
-    plot(x$wt, x$qs, col = x$mpg, border = 'white')
+    # scatterplot
+    output$plot <- renderPlot({
+    plot(mtcars[,input$predictor], mtcars[, input$predicted], col = "blue", pch = 18)
+    abline(fit(), col = "red")
 
-  })
-
-})
+    })
+      })   

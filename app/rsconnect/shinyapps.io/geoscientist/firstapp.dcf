@@ -1,0 +1,8 @@
+name: firstapp
+account: geoscientist
+server: shinyapps.io
+bundleId: 339415
+url: https://geoscientist.shinyapps.io/firstapp
+when: 1451219010.92368
+asMultiple: FALSE
+asStatic: FALSE
